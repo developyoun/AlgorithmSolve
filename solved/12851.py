@@ -1,29 +1,25 @@
 from collections import deque
-pos, goal = map(int, input().split())
-visited  = [-1] * 200001
-time, cnt = float('INF'), 0
 
-visited[pos] = 0
-queue = deque()
-queue.append([pos, 0])
+s, e = map(int, input().split())
+visited = [-1] * 200001
+count = [0] * 200001
+visited[s] = 0
+count[s] = 1
 
-while queue:
+dq = deque()
+dq.append(s)
+while dq:
+    now = dq.popleft()
 
-    for _ in range(len(queue)): 
-        now, t = queue.popleft()
+    for new in (now+1, now-1, now*2):
+        if not 0 <= new < 200001: continue
+        if visited[new] == -1:
+            visited[new] = visited[now] +1
+            count[new] += 1
+            dq.append(new)
+        elif visited[new] == visited[now]+1:
+            count[new] += 1
+            dq.append(new)
 
-        if t > time:
-            continue
-
-        if now == goal:
-            if time > t:
-                time = t;
-            cnt += 1
-            continue
-
-        for new in (now+1, now-1, now*2):
-            if new < 0 or new > 200000: continue
-            if visited[new] == -1:
-                visited[new] 
-        
-print(time, cnt)
+print(visited[e])
+print(count[e])
