@@ -1,7 +1,7 @@
 from collections import deque
 
 def solution(priorities, location):
-    answer = 0
+    answer = 1
 
     dq = deque()
     l = len(priorities)
